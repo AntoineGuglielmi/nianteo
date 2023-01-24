@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const props = withDefault(defineProps<{
+const props = withDefaults(defineProps<{
 	items: Array<unknown>,
 	nick?: string
 }>(), {
