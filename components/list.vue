@@ -1,18 +1,48 @@
 <script lang="ts" setup>
+
+import { useSlots, computed } from 'vue';
+
 const props = withDefaults(defineProps<{
-	items: Array<unknown>,
-	nick?: string
+	items: unknown[]; // The items to list
+	nick?: string; // The items nickname defines the name under which items and slot will be accessible
 }>(), {
 	nick: 'item'
 });
+
+// The list slots
+const slots = useSlots();
+
+const showBefore = computed(() => {
+	return !!slots.before;
+});
+
+const showAfter = computed(() => {
+	return !!slots.after;
+});
+
 </script>
 
 <template>
 	<ul>
-		<li
-			v-for="(item, index) in items"
-		>
-			<slot :name="nick" v-bind="{ [nick]: item, index }"></slot>
+
+		<li v-if="showBefore">
+			<slot name="before" />
 		</li>
+
+		<template
+			v-for="(item, index) in items"
+			:key="index"
+		>
+
+			<li>
+				<slot :name="nick" v-bind="{ [nick]: item, index }"/>
+			</li>
+
+		</template>
+
+		<li v-if="showAfter">
+			<slot name="after" />
+		</li>
+
 	</ul>
 </template>
