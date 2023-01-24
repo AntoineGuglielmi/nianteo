@@ -1,0 +1,23 @@
+{
+  "name": "test",
+  "version": "0.0.1",
+  "description": "Testing nuxtjs3 module Kaizen Codes way",
+  "main": "nuxt.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/AntoineGuglielmi/test-nuxt3-module.git"
+  },
+  "keywords": [
+    "Nuxtjs3",
+    "module"
+  ],
+  "author": "Antoine Guglielmi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AntoineGuglielmi/test-nuxt3-module/issues"
+  },
+  "homepage": "https://github.com/AntoineGuglielmi/test-nuxt3-module#readme"
+}
