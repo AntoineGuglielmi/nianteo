@@ -1,56 +1,58 @@
 <script lang="ts" setup>
-import { Ref, ref, useSlots, computed } from 'vue';
-export interface Action {
-	text: string,
-	value: unknown
-}
 
-const props = withDefaults(defineProps<{
-	actions?: Array<Action>; // The actions triggered by the modal's buttons
-	outterExit?: boolean; // Determines if the modal closes if clicked outside body
-}>(), {
-	actions: [
-		{
-			text: 'Validate',
-			value: true
-		},
-		{
-			text: 'Cancel',
-			value: false
-		}
-	],
-	outterExit: false,
-});
+	import { Ref, ref, useSlots, computed } from 'vue';
 
-const openModal: Ref<boolean> = ref(false);
-let callback = () => {};
+	export interface Action {
+		text: string;
+		value: unknown;
+	}
 
-const open = () => {
-	openModal.value = true;
-	return new Promise((resolve, rej) => {
-		callback = resolve;
+	withDefaults(defineProps<{
+			actions?: Array<Action>; // The actions triggered by the modal's buttons
+			outterExit?: boolean; // Determines if the modal closes if clicked outside body
+		}>(), {
+			actions: () => [
+				{
+					text: 'Validate',
+					value: true
+				},
+				{
+					text: 'Cancel',
+					value: false
+				}
+			],
+			outterExit: false,
 	});
-}
 
-const answer = (value: any) => {
-	openModal.value = false;
-	callback(value);
-}
+	const openModal: Ref<boolean> = ref(false);
+	let callback = (value: (PromiseLike<unknown> | unknown)) => {};
 
-const close = () => {
-	openModal.value = false;
-}
+	const open = () => {
+		openModal.value = true;
+		return new Promise((resolve, rej) => {
+			callback = resolve;
+		});
+	}
 
-const slots = useSlots();
+	const answer = (value: any) => {
+		openModal.value = false;
+		callback(value);
+	}
 
-const hasDefault = computed(() => {
-	return slots.default !== undefined;
-});
+	const close = () => {
+		openModal.value = false;
+	}
 
-defineExpose({
-	open,
-	answer
-});
+	const slots = useSlots();
+
+	const hasDefault = computed(() => {
+		return slots.default !== undefined;
+	});
+
+	defineExpose({
+		open,
+		answer
+	});
 
 </script>
 

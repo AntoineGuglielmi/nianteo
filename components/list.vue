@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 
-import { useSlots, computed } from 'vue';
+import { useSlots, computed, withDefaults,defineProps } from 'vue';
 
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
 	items: unknown[]; // The items to list
 	nick?: string; // The items nickname defines the name under which items and slot will be accessible
 }>(), {
@@ -12,10 +12,12 @@ const props = withDefaults(defineProps<{
 // The list slots
 const slots = useSlots();
 
+// Is there any before slot ?
 const showBefore = computed(() => {
 	return !!slots.before;
 });
 
+// Is there any after slot ?
 const showAfter = computed(() => {
 	return !!slots.after;
 });
