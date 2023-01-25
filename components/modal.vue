@@ -51,6 +51,7 @@
 
 	defineExpose({
 		open,
+		close,
 		answer
 	});
 
